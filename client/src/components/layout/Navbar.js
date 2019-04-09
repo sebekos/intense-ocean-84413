@@ -14,15 +14,32 @@ class Navbar extends Component {
         this.props.logoutUser();
     }
 
+    //onClick={(e) => { this.onLogoutClick(e) }}
     render() {
         const { isAuthenticated, user } = this.props.auth;
 
         const authLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a href="/login" onClick={(e) => { this.onLogoutClick(e) }} className="navlink">
-                        <img className="rounded-circle" src={user.avatar} alt={user.name} style={{ width: '25px', marginRight: '5px' }} title="You must have a gravatar connected to your email to display an image" />Logout
-                    </a>
+                    <Link className="nav-link" to="/dashboard">
+                        Dashboard
+                </Link>
+                </li>
+                <li className="nav-item">
+                    <a
+                        href="/login"
+                        onClick={(e) => { this.onLogoutClick(e) }}
+                        className="nav-link"
+                    >
+                        <img
+                            className="rounded-circle"
+                            src={user.avatar}
+                            alt={user.name}
+                            style={{ width: '25px', marginRight: '5px' }}
+                            title="You must have a Gravatar connected to your email to display an image"
+                        />{' '}
+                        Logout
+                </a>
                 </li>
             </ul>
         );
@@ -30,10 +47,14 @@ class Navbar extends Component {
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <Link className="nav-link" to="/register"> Register</Link>
+                    <Link className="nav-link" to="/register">
+                        Sign Up
+                </Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/login"> Login</Link>
+                    <Link className="nav-link" to="/login">
+                        Login
+                </Link>
                 </li>
             </ul>
         );
