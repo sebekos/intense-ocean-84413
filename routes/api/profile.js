@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
+const request = require('request');
 
 //Validate education input
 const validateEducationInput = require('../../validation/education');
@@ -278,5 +279,30 @@ router.delete(
             })
     }
 );
+
+// @route       GET api/profile/github/:username/:count/:sort
+// @desc        Get github data from github api
+// @access      Public
+router.get('/github/:username/:count/:sort', (req, res) => {
+    username = req.params.username;
+    clientId = "26c196bacea7db10cf48";
+    clientSecret = "0885cb690e07d2a93a6afb0891fb552fd9f7aa53";
+    count = req.params.count;
+    sort = req.params.sort;
+    const options = {
+        url: `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`,
+        headers: {
+            "User-Agent": "request"
+        }
+    };
+
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            const info = JSON.parse(body);
+            res.json(info);
+        }
+    }
+    request(options, callback);
+});
 
 module.exports = router;
