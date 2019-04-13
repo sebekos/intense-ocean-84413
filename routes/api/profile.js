@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const request = require('request');
 
+const gitClientId = require('../../config/keys').gitClientId;
+const gitClientSecret = require('../../config/keys').gitClientSecret;
+
+
 //Validate education input
 const validateEducationInput = require('../../validation/education');
 //Validate experience input
@@ -285,8 +289,8 @@ router.delete(
 // @access      Public
 router.get('/github/:username/:count/:sort', (req, res) => {
     username = req.params.username;
-    clientId = "26c196bacea7db10cf48";
-    clientSecret = "0885cb690e07d2a93a6afb0891fb552fd9f7aa53";
+    clientId = gitClientId;
+    clientSecret = gitClientSecret;
     count = req.params.count;
     sort = req.params.sort;
     const options = {
